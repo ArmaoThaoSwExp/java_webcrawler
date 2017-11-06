@@ -10,6 +10,8 @@ import java.nio.file.Paths;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.json.JSONArray;
+
 /**
  * Unit test for simple App.
  */
@@ -36,14 +38,14 @@ public class SqlLiteDbTest
                 " col2 INT NULL);");
         int insert_row_result = this.db.execUpdateCmd("INSERT INTO SqlLiteDbTest (col1, col2) " +
                 "VALUES(\"col1\", 2);");
-        ResultSet read_all_result = this.db.execQueryCmd("SELECT * FROM SqlLiteDbTest;");
+        JSONArray read_all_result = this.db.execQueryCmd("SELECT * FROM SqlLiteDbTest;");
+        assertEquals("Verify written to database matches original data",
+                read_all_result.toString(), "[{\"col2\":2,\"col1\":\"col1\"}]");
         return;
     }
 
     public void testQueryAll(){
 
     }
-
-
 
 }

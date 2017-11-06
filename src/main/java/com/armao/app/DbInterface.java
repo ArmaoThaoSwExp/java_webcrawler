@@ -1,5 +1,7 @@
 package com.armao.app;
 
+import org.json.JSONArray;
+
 import java.sql.*;
 import java.io.*; /* Handle files */
 
@@ -46,11 +48,12 @@ public interface DbInterface {
         return result;
     }
 
-    static ResultSet executeQueryCmd(String url, String cmd) {
-        ResultSet result = null;
+    static JSONArray executeQueryCmd(String url, String cmd) {
+        JSONArray result = null;
         try (Connection conn = connect(url);
              Statement stmt = conn.createStatement()) {
-             result = stmt.executeQuery(cmd);
+             ResultSet rs = stmt.executeQuery(cmd);
+             result = DBDataConverter.convert(rs);
         }
         catch (SQLException exc) {
             System.out.println(exc.getMessage());

@@ -1,5 +1,7 @@
 package com.armao.app;
 
+import org.json.JSONArray;
+
 import java.sql.*;
 
 
@@ -38,8 +40,8 @@ public class SqlLiteDb implements DbInterface {
         return result;
     }
 
-    public ResultSet execQueryCmd(String cmd){
-        ResultSet result;
+    public JSONArray execQueryCmd(String cmd){
+        JSONArray result;
         result = DbInterface.executeQueryCmd(this.url, cmd);
         return result;
     }
